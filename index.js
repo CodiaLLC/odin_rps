@@ -14,7 +14,7 @@ function getComputerChoice () {
 
 console.log(getComputerChoice());
 
-function gameOutcome (playerChoice, computerChoice) {
+function playRound (playerChoice, computerChoice) {
     let p = playerChoice.toLowerCase();
     let c = computerChoice.toLowerCase();
     if (p === c) {
@@ -41,7 +41,35 @@ function gameOutcome (playerChoice, computerChoice) {
     else {return ('Something went wrong.');}
 }
 
-console.log (gameOutcome('Paper', getComputerChoice()));
-console.log (gameOutcome('ROCK', getComputerChoice()));
-console.log (gameOutcome('sCiSsorS', getComputerChoice()));
-console.log (gameOutcome('POTATO', getComputerChoice()));
+console.log (playRound('Paper', getComputerChoice()));
+console.log (playRound('ROCK', getComputerChoice()));
+console.log (playRound('sCiSsorS', getComputerChoice()));
+console.log (playRound('POTATO', getComputerChoice()));
+
+function playGame() {
+    let playerWins = 0;
+    let computerWins = 0;
+    let tieOrError = 0;
+    for (let i = 0; i < 5; i++) {
+        let playerChoice = prompt("rock, paper, scissors?");
+        let roundOutcome = playRound(playerChoice, getComputerChoice());
+        console.log(roundOutcome);
+        if (roundOutcome.charAt(4) === 'w'){
+            playerWins++;
+        }
+        else if (roundOutcome.charAt(4) === 'l'){
+            computerWins++;
+        }
+        else {tieOrError++;}
+    }
+    console.log ("You won " + playerWins + " times, computer won " + computerWins + " times, and " + tieOrError + " ties or bad inputs.")
+    if (playerWins > computerWins) {
+        console.log("You win best of 5!")
+    }
+    else if (computerWins > playerWins) {
+        console.log("Computer wins best of 5!")
+    }
+    else {console.log("No winner this game.")}
+}
+
+playGame();
