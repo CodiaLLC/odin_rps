@@ -12,7 +12,7 @@ function getComputerChoice () {
     }
 }
 
-console.log(getComputerChoice());
+// console.log(getComputerChoice());
 
 function playRound (playerChoice, computerChoice) {
     let p = playerChoice.toLowerCase();
@@ -41,10 +41,10 @@ function playRound (playerChoice, computerChoice) {
     else {return ('Something went wrong.');}
 }
 
-console.log (playRound('Paper', getComputerChoice()));
-console.log (playRound('ROCK', getComputerChoice()));
-console.log (playRound('sCiSsorS', getComputerChoice()));
-console.log (playRound('POTATO', getComputerChoice()));
+// console.log (playRound('Paper', getComputerChoice()));
+// console.log (playRound('ROCK', getComputerChoice()));
+// console.log (playRound('sCiSsorS', getComputerChoice()));
+// console.log (playRound('POTATO', getComputerChoice()));
 
 function playGame() {
     let playerWins = 0;
@@ -70,6 +70,7 @@ function playGame() {
         console.log("Computer wins best of 5!")
     }
     else {console.log("No winner this game.")}
+    // Note "Best of 5" not strictly accurate with ties and errors but good enough for the scope of this assignment.
 }
 
 playGame();
