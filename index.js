@@ -1,6 +1,5 @@
 function getComputerChoice () {
     let x = Math.floor((Math.random() * 3));
-    console.log(x);
     if (x === 0) {
         return 'Rock';
     }
@@ -12,65 +11,67 @@ function getComputerChoice () {
     }
 }
 
-// console.log(getComputerChoice());
-
 function playRound (playerChoice, computerChoice) {
     let p = playerChoice.toLowerCase();
     let c = computerChoice.toLowerCase();
+    scoreboard.textContent = 'Computer chose ' + computerChoice + '. \r\n'
     if (p === c) {
-        return ('Tie! Computer picked ' + computerChoice + ' as well.');
+        return ('tie');
     }
     else if (p === 'rock' && c === 'paper') {
-        return ('You lose! Paper covers Rock.');
+        return ('loss');
     }
     else if (c === 'rock' && p === 'paper') {
-        return ('You win! Paper covers Rock.');
+        return ('win');
     }
     else if (p === 'rock' && c === 'scissors') {
-        return ('You win! Rock crushes Scissors.');
+        return ('win');
     }
     else if (c === 'rock' && p === 'scissors') {
-        return ('You lose! Rock crushes Scissors.');
+        return ('loss');
     }
     else if (p === 'scissors' && c === 'paper') {
-        return ('You win! Scissors cut Paper.');
+        return ('win');
     }
     else if (c === 'scissors' && p === 'paper') {
-        return ('You lose! Scissors cut Paper.');
+        return ('loss');
     }
-    else {return ('Something went wrong.');}
+    else { return ('error');}
 }
 
-// console.log (playRound('Paper', getComputerChoice()));
-// console.log (playRound('ROCK', getComputerChoice()));
-// console.log (playRound('sCiSsorS', getComputerChoice()));
-// console.log (playRound('POTATO', getComputerChoice()));
+let playerWins = 0;
+let computerWins = 0;
+const scoreboard = document.getElementById('scoreboard');
+scoreboard.setAttribute('style', 'white-space: pre;');
 
-function playGame() {
-    let playerWins = 0;
-    let computerWins = 0;
-    let tieOrError = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = prompt("rock, paper, scissors?");
-        let roundOutcome = playRound(playerChoice, getComputerChoice());
-        console.log(roundOutcome);
-        if (roundOutcome.charAt(4) === 'w'){
-            playerWins++;
-        }
-        else if (roundOutcome.charAt(4) === 'l'){
-            computerWins++;
-        }
-        else {tieOrError++;}
+function playGame () {
+    let outcome = playRound(this.id, getComputerChoice());
+    if (outcome === 'win') {
+        playerWins += 1;
+        scoreboard.textContent += ('Player wins this round.\n Current score:\n Player: ' 
+        + playerWins + ' \n Computer: ' + computerWins);
     }
-    console.log ("You won " + playerWins + " times, computer won " + computerWins + " times, and " + tieOrError + " ties or bad inputs.")
-    if (playerWins > computerWins) {
-        console.log("You win best of 5!")
+    else if (outcome === 'loss') {
+        computerWins += 1;
+        scoreboard.textContent += (`Computer wins this round.\n Current score:\n Player: ${playerWins} \n Computer: ${computerWins}`)
     }
-    else if (computerWins > playerWins) {
-        console.log("Computer wins best of 5!")
+    else if (outcome === 'tie') {
+        scoreboard.textContent += (`Tie this round.\n Current score:\n Player: ${playerWins} \n Computer: ${computerWins}`)
     }
-    else {console.log("No winner this game.")}
-    // Note "Best of 5" not strictly accurate with ties and errors but good enough for the scope of this assignment.
+    else if (outcome === 'error') {
+        scoreboard.textContent = 'Something went wrong.'
+    }
 }
 
-playGame();
+let rockButton = document.getElementById('rock');
+let paperButton = document.getElementById('paper');
+let scissorsButton = document.getElementById('scissors');
+
+rockButton.addEventListener("click", playGame);
+paperButton.addEventListener("click", playGame);
+scissorsButton.addEventListener("click", playGame);
+
+
+
+
+
