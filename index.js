@@ -14,7 +14,7 @@ function getComputerChoice () {
 function playRound (playerChoice, computerChoice) {
     let p = playerChoice.toLowerCase();
     let c = computerChoice.toLowerCase();
-    scoreboard.textContent = 'Computer chose ' + computerChoice + '. \r\n'
+    scoreboard.textContent = `Computer chose ${computerChoice}. \r\n`
     if (p === c) {
         return ('tie');
     }
@@ -44,16 +44,29 @@ let computerWins = 0;
 const scoreboard = document.getElementById('scoreboard');
 scoreboard.setAttribute('style', 'white-space: pre;');
 
+function scoreReset() {
+    playerWins = 0;
+    computerWins = 0;
+}
+
 function playGame () {
     let outcome = playRound(this.id, getComputerChoice());
     if (outcome === 'win') {
         playerWins += 1;
         scoreboard.textContent += ('Player wins this round.\n Current score:\n Player: ' 
         + playerWins + ' \n Computer: ' + computerWins);
+        if (playerWins >= 5) {
+            scoreboard.textContent += '\r\n\r\n PLAYER WINS THIS SET!';
+            scoreReset();
+        }
     }
     else if (outcome === 'loss') {
         computerWins += 1;
         scoreboard.textContent += (`Computer wins this round.\n Current score:\n Player: ${playerWins} \n Computer: ${computerWins}`)
+        if (computerWins >= 5) {
+            scoreboard.textContent += '\r\n\r\n COMPUTER WINS THIS SET!';
+            scoreReset();
+        }
     }
     else if (outcome === 'tie') {
         scoreboard.textContent += (`Tie this round.\n Current score:\n Player: ${playerWins} \n Computer: ${computerWins}`)
